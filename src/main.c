@@ -6,11 +6,12 @@
 #define LOG_PAGE_SIZE       256
 
 //16k
-#define MAX_SIZE 12*4*4*1024
-
-#define FILEDIR "files"
+//#define MAX_SIZE 4*4*1024
+//#define FILEDIR "files"
 #define ROMNAME "spiff_rom.bin"
 #define ROMERASE 0xFF
+static const char *FILEDIR;
+static const int MAX_SIZE;
 
 static spiffs fs;
 static u8_t spiffs_work_buf[LOG_PAGE_SIZE*2];
@@ -101,12 +102,10 @@ static s32_t my_spiffs_erase(u32_t addr, u32_t size) {
     return SPIFFS_OK;
 }
 
-
-
-void my_spiffs_mount() {
+void my_spiffs_mount(u32_t msize) {
   spiffs_config cfg;
 
-  cfg.phys_size = MAX_SIZE; // use all spi flash
+  cfg.phys_size = msize; // use all spi flash
   cfg.phys_addr = 0; // start spiffs at start of spi flash
 
   cfg.phys_erase_block = SPI_FLASH_SEC_SIZE;
@@ -146,28 +145,14 @@ int write_to_spiffs(char *fname, u8_t *data,int size) {
     return 0;
 }
 
-static void test_spiffs() {
-    char buf[12],out[12];
-
-    sprintf(buf,"Hi there ");
-
-    write_to_spiffs("my_file", buf, 10);
-
-    spiffs_file fd = SPIFFS_open(&fs, "my_file", SPIFFS_RDWR, 0);
-    if (SPIFFS_read(&fs, fd, (u8_t *)out, 10) < 0) S_DBG("errno %i\n", SPIFFS_errno(&fs));
-    SPIFFS_close(&fs, fd);
-
-    printf("--> %s <--\n", buf);
-}
-
-void add_file(char* fname) {
+void add_file(const char* fdir,char* fname) {
 
     int sz;
     u8_t *buf;
     char *path = malloc(1024);
 
-
-    sprintf(path,"%s/%s", FILEDIR,fname);
+	sprintf(path,"%s/%s", fdir,fname);
+   // sprintf(path,"%s/%s", FILEDIR,fname);
 
 
     FILE *fp = fopen(path,"r");
@@ -204,9 +189,23 @@ void add_file(char* fname) {
 
 }
 
+int get_rom_size (char *str) {
+	char *endptr;
+    long val;
+
+    val = strtol(str, &endptr, 10);
+    return (int) val;
+}
 
 int main(int argc, char **args) {
-
+	if (argc != 3) {
+        printf ("Usage: %s maxFsSizeinByte spiffsBaseDir\n", args[0]);
+       exit (EXIT_FAILURE);
+    }
+	const int MAX_SIZE=get_rom_size (args [1]);
+	const char* FILEDIR=args [2];
+	
+	printf("Creating rom %s of size %d bytes\n", ROMNAME, MAX_SIZE);
     rom = fopen(ROMNAME,"w+");
     int i;
     for(i=0; i < MAX_SIZE; i++) {
@@ -214,9 +213,7 @@ int main(int argc, char **args) {
     }
     fflush(rom);
 
-    my_spiffs_mount();
-    printf("Creating rom %s of size %d bytes\n", ROMNAME, MAX_SIZE);
-
+    my_spiffs_mount(MAX_SIZE);
 
     printf("Adding files in directory %s\n", FILEDIR);
     DIR *dir;
@@ -224,7 +221,7 @@ int main(int argc, char **args) {
     if ((dir = opendir (FILEDIR)) != NULL) {
         /* print all the files and directories within directory */
         while ((ent = readdir (dir)) != NULL) {
-            add_file(ent->d_name);
+            add_file(FILEDIR,ent->d_name);
         }
         closedir (dir);
     } else {
@@ -232,8 +229,6 @@ int main(int argc, char **args) {
         printf("Unable to open directory %s\n", FILEDIR);
         return EXIT_FAILURE;
     }
-
-
 
     fclose(rom);
     exit(EXIT_SUCCESS);

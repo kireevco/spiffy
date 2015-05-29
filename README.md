@@ -21,6 +21,14 @@ get all the files onto your cool IoT device in one fell swoop.
 git clone https://github.com/xlfe/spiffy.git
 cd spiffy
 mkdir build
+```
+
+On Windows you would have to make sure your mingw/msys paths are in a right order:
+```bash
+export PATH=/C/tools/mingw64/msys/1.0/bin:/C/tools/mingw64/bin:$PATH
+```
+
+```bash
 make
 ```
 
