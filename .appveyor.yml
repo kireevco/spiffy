@@ -41,6 +41,8 @@ install:
   - ps: echo "pass"
 build_script:
   - ps: dir c:\MinGW
+  - ps: dir c:\MinGW\msys\bin
+  - ps: dir c:\MinGW\bin
   - cmd: echo %PATH%
   - cmd: where make
   - ps: cd c:\projects\spiffy
