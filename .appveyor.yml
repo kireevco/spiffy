@@ -47,7 +47,7 @@ build_script:
   # - cmd: echo %PATH%
   # - cmd: where make
   - ps: cd c:\projects\spiffy
-  - ps: mingw32-make.exe'
+  - ps: mingw32-make.exe
 
 deploy:
   release: myproduct-v$(appveyor_build_version)
