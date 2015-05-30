@@ -2,7 +2,7 @@ language: cpp
 install:
 - echo "Install"
 script:
-- if [[ -z $TRAVIS_TAG ]]; then TRAVIS_TAG="dev-${TRAVIS_BUILD_NUMBER}"
+- if [[ -z $TRAVIS_TAG ]]; then TRAVIS_TAG="dev-${TRAVIS_BUILD_NUMBER}" fi
 - file_name="spiffy-${TRAVIS_TAG}-linux-x86_64.tar.gz"
 - make all
 - tar zcf ${TRAVIS_BUILD_DIR}/${file_name} ${TRAVIS_BUILD_DIR}/build/spiffy
