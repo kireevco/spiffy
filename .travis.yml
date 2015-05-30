@@ -1,0 +1,22 @@
+language: cpp
+# before_install:
+# - sudo apt-get install -y python-serial srecord
+install:
+- echo "Install"
+# - wget https://github.com/GeorgeHahn/nodemcu-firmware/raw/travis/tools/esp-open-sdk.tar.gz -O tools/esp-open-sdk.tar.gz
+# - tar -zxvf tools/esp-open-sdk.tar.gz
+# - export PATH=$PATH:$PWD/esp-open-sdk/sdk:$PWD/esp-open-sdk/xtensa-lx106-elf/bin
+
+script:
+- file_name="spiffy-${TRAVIS_TAG}-linux-x86_64.tar.gz"
+- make all
+- tar zcf ${TRAVIS_BUILD_DIR}/${file_name} ${TRAVIS_BUILD_DIR}/build/spiffy
+
+deploy:
+  provider: releases  
+  file:
+    - "$TRAVIS_BUILD_DIR/build/${file_name}"    
+  skip_cleanup: true
+  on:
+    tags: true
+    repo: kireevco/spiffy
