@@ -51,11 +51,10 @@ build_script:
 
 deploy:
   release: myproduct-v$(appveyor_build_version)
-  provider: GitHub
-  environment:
-    access_token:
-      secure: zOub2u3XKk46bIt0jStLswKAi8yTdfVqB65hNi+xWs4xntjArEp9ptUnijIEyqy+
-    artifact: /.*\.exe/
+  provider: GitHub  
+  auth_roken:
+    secure: zOub2u3XKk46bIt0jStLswKAi8yTdfVqB65hNi+xWs4xntjArEp9ptUnijIEyqy+
+  artifact: /.*\.exe/
   draft: false
   prerelease: false
   on:
