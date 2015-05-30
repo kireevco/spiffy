@@ -40,10 +40,10 @@ install:
   # - ps: mingw-get install msys-make msys-regex msys-libregex msys-sed msys-autoconf msys-automake msys-mktemp msys-patch msys-libtool
   - ps: echo "pass"
 build_script:
-  - ps: dir c:\MinGW
-  - ps: dir c:\MinGW\bin
-  - ps: dir c:\MinGW\msys\bin
-  - cmd: echo %PATH%
-  - cmd: where make
+  # - ps: dir c:\MinGW
+  # - ps: dir c:\MinGW\bin
+  # - ps: dir c:\MinGW\msys\bin
+  # - cmd: echo %PATH%
+  # - cmd: where make
   - ps: cd c:\projects\spiffy
-  - ps: make
+  - ps: mingw32-make.exe
