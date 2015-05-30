@@ -2,10 +2,11 @@ language: cpp
 install:
 - echo "Install"
 script:
-- if [[ -z $TRAVIS_TAG ]]; then TRAVIS_TAG="dev-${TRAVIS_BUILD_NUMBER}"; fi
-- file_name="spiffy-${TRAVIS_TAG}-linux-x86_64.tar.gz"
+- if [[ -z $TRAVIS_TAG ]]; then VERSION="dev-${TRAVIS_BUILD_NUMBER}"; else VERSION=$TRAVIS_TAG; fi
+- file_name="spiffy-${VERSION}-${TRAVIS_OS_NAME}-x86_64.tar.gz"
 - make all
-- tar zcf ${TRAVIS_BUILD_DIR}/${file_name} ${TRAVIS_BUILD_DIR}/build/spiffy
+- cd ${TRAVIS_BUILD_DIR}/build/
+- tar zcf ${TRAVIS_BUILD_DIR}/${file_name} spiffy
 deploy:
   provider: releases
   api_key:
@@ -13,4 +14,3 @@ deploy:
   file: $file_name
   on:
     tags: true
-#
