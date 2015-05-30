@@ -38,7 +38,8 @@ install:
   # - ps: choco install mingw
   # - ps: choco install mingw-get
   # - ps: mingw-get install msys-make msys-regex msys-libregex msys-sed msys-autoconf msys-automake msys-mktemp msys-patch msys-libtool
-  - ps: echo "pass"
+  - ps: $env:Path = $env:Path + ";c:\MinGW\bin"
+
 build_script:
   # - ps: dir c:\MinGW
   # - ps: dir c:\MinGW\bin
@@ -46,4 +47,17 @@ build_script:
   # - cmd: echo %PATH%
   # - cmd: where make
   - ps: cd c:\projects\spiffy
-  - ps: mingw32-make.exe
+  - ps: mingw32-make.exe'
+
+deploy:
+  release: myproduct-v$(appveyor_build_version)
+  provider: GitHub
+  environment:
+    auth_token:
+      secure: zOub2u3XKk46bIt0jStLswKAi8yTdfVqB65hNi+xWs4xntjArEp9ptUnijIEyqy+
+    artifact: /.*\.exe/
+  draft: false
+  prerelease: false
+  on:
+    branch: master                 # release from master branch only
+    appveyor_repo_tag: true        # deploy on tag push only
