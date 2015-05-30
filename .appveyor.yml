@@ -8,6 +8,8 @@ version: 1.0.4.{build}
 # you can use {branch} name in version format too
 # version: 1.0.{build}-{branch}
  
+os: MinGW
+
 # branches to build
 branches:
   # whitelist
@@ -21,12 +23,7 @@ branches:
  
 # Do not build on tags (GitHub only)
 skip_tags: true
- 
 
- 
-# Operating system (build VM template)
-os: Windows Server 2012
- 
 # scripts that are called at very beginning, before repo cloning
 init:
   - git config --global core.autocrlf input
@@ -41,6 +38,7 @@ install:
   # - ps: choco install mingw-get
   # - ps: mingw-get install msys-make msys-regex msys-libregex msys-sed msys-autoconf msys-automake msys-mktemp msys-patch msys-libtool
   - ps: echo "pass"
-build_script:
-  - ps: cd c:\projects\spiffy
-  - ps: make
+# build_script:
+#   - ps: dir c:\MinGW
+#   - ps: cd c:\projects\spiffy
+#   - ps: make
