@@ -9,6 +9,10 @@ version: 1.0.4.{build}
 # version: 1.0.{build}-{branch}
  
 os: MinGW
+platform:
+- x86
+- x64
+
 
 # branches to build
 branches:
@@ -38,7 +42,7 @@ install:
   # - ps: choco install mingw-get
   # - ps: mingw-get install msys-make msys-regex msys-libregex msys-sed msys-autoconf msys-automake msys-mktemp msys-patch msys-libtool
   - ps: echo "pass"
-# build_script:
-#   - ps: dir c:\MinGW
-#   - ps: cd c:\projects\spiffy
-#   - ps: make
+build_script:
+  - ps: dir c:\MinGW
+  - ps: cd c:\projects\spiffy
+  - ps: make
