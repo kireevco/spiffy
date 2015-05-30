@@ -11,6 +11,6 @@ deploy:
   provider: releases
   api_key:
     secure: IOO1W0rD1MY5tVcdhd6VPz14nPlPo2LwFhyM2eYn2GDTtBc+JpZ8+JqDuqsEZYM72HgKC2EBnsp4wLv6iI2r8cE60225Z3F8Rx4CNKu4dRcoGMEyRKP71uhjrGtGXNT/gdOk/6ePOKipg2M60gs79nO9hv6GrwpXR7RdbHt+hmEr3jo3/Xiyj8+hHt9VfpX6P8RKn35SU3ES+r2E3omu6N6G/NG0PKYf8w7TwiYJKDSCvFFvZBAoPcngBNJx6yl3IpFHB4zSfcDNh1uzdtckA0r7Z+82T/QpvSDO2YX9nu6quwfntDJent5l5OKjXgZrutWhwKri+pvjedqkJUgTk9ZAI6Acf+n1IEF+smkn3KsUpntKMD9/q23+uegm3q6OPI79hlkBMNo8lsrMPzRG6L28v4MzK5sDMSD9QARybT2gEEPMGKKhh64WYlyXOv7A2p1QsGQbfLbK2VaKbyNd737JpcaC1A/R9gctOrrWtbKYnNkWxjKUNLKD/RSkDTJwEyUS8XeMvlySkKiN5X4tP8izy+jTXhD5NV95f0/JUbhkJjT74b0gocasZy2+drttXUt/znC47YO5RCNeA5Cm/dKNYWq4n/0OhUDvptGCuIru9Tb3v9ql5zN/lYVGKtwIoZDvY3bVSJSKlnZeIn6V/wSvO6MwlXUgcY46BSyiDto=
-  file: $file_name
+  file: ${TRAVIS_BUILD_DIR}/$file_name
   on:
     tags: true
