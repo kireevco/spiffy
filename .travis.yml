@@ -8,6 +8,7 @@ script:
 - make all
 - cd ${TRAVIS_BUILD_DIR}/build/
 - tar zcf ${TRAVIS_BUILD_DIR}/${file_name} spiffy
+- cd ${TRAVIS_BUILD_DIR}
 deploy:
   provider: releases
   api_key:
