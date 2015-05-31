@@ -40,6 +40,7 @@ install:
   # - ps: choco install mingw-get -y
   # - cmd: C:\tools\mingw64\bin\mingw-get install msys-make msys-regex msys-libregex msys-sed msys-autoconf msys-automake msys-mktemp msys-patch msys-libtool
   # - ps: $env:Path = "c:\MinGW\msys\1.0\bin;C:\tools\mingw64\bin;C:\tools\mingw64\msys\1.0\bin" + $env:Path
+  - ps: $env:Path = "c:\MinGW\bin;" + $env:Path
 
 build_script:
   # - ps: dir c:\MinGW
