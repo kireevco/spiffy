@@ -36,21 +36,22 @@ clone_folder: c:\projects\spiffy
 install:
   # by default, all scripts lines are interpreted as batch
   # - ps: choco install mingw
-  # - ps: choco sources add -name kireevco -source 'https://www.myget.org/F/kireevco-chocolatey/'
-  # - ps: choco install mingw-get -y
-  # - cmd: C:\tools\mingw64\bin\mingw-get install msys-make msys-regex msys-libregex msys-sed msys-autoconf msys-automake msys-mktemp msys-patch msys-libtool
-  # - ps: $env:Path = "c:\MinGW\msys\1.0\bin;C:\tools\mingw64\bin;C:\tools\mingw64\msys\1.0\bin" + $env:Path
-  - ps: $env:Path = "c:\MinGW\bin;" + $env:Path
+  - ps: choco sources add -name kireevco -source 'https://www.myget.org/F/kireevco-chocolatey/'
+  - ps: choco install mingw-get -y
+  - cmd: C:\tools\mingw64\bin\mingw-get install msys-make msys-autoconf msys-automake msys-mktemp msys-patch
+  - ps: $env:Path = "c:\MinGW\msys\1.0\bin;C:\tools\mingw64\bin;C:\tools\mingw64\msys\1.0\bin;" + $env:Path
+  # - ps: $env:Path = "c:\MinGW\bin;" + $env:Path
 
 build_script:
   # - ps: dir c:\MinGW
-  - ps: dir c:\MinGW\bin
+  - ps: dir c:\MinGW\msys\1.0\bin
   # - ps: dir c:\MinGW\msys\bin
   # - cmd: echo %PATH%
   # - cmd: where make
   - cmd: mkdir build
   - cmd: cd c:\projects\spiffy
-  - cmd: mingw32-make.exe
+  # - cmd: mingw32-make.exe
+  - cmd: make.exe
 
 deploy:
   release: myproduct-v$(appveyor_build_version)
