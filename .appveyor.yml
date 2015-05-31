@@ -47,6 +47,7 @@ build_script:
   # - ps: dir c:\MinGW\msys\bin
   # - cmd: echo %PATH%
   # - cmd: where make
+  - cmd: mkdir build
   - cmd: cd c:\projects\spiffy
   - cmd: make.exe
 
