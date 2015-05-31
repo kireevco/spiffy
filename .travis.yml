@@ -4,6 +4,7 @@ install:
 script:
 - if [[ -z $TRAVIS_TAG ]]; then VERSION="dev-${TRAVIS_BUILD_NUMBER}"; else VERSION=$TRAVIS_TAG; fi
 - file_name="spiffy-${VERSION}-${TRAVIS_OS_NAME}-x86_64.tar.gz"
+- mkdir build
 - make all
 - cd ${TRAVIS_BUILD_DIR}/build/
 - tar zcf ${TRAVIS_BUILD_DIR}/${file_name} spiffy
