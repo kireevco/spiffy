@@ -36,8 +36,9 @@ clone_folder: c:\projects\spiffy
 install:
   # by default, all scripts lines are interpreted as batch
   # - ps: choco install mingw
-  - ps: choco sources add -name kireevco -source 'https://www.myget.org/F/kireevco-chocolatey/'
-  - ps: choco install mingw-get -y
+  - cmd: choco sources add -name kireevco -source 'https://www.myget.org/F/kireevco-chocolatey/'
+  - ps: New-Item -path C:\tools\mingw64\bin\ -type directory
+  - cmd: choco install mingw-get -y
   - cmd: C:\tools\mingw64\bin\mingw-get install msys-make msys-autoconf msys-automake msys-mktemp msys-patch
   - ps: $env:Path = "c:\MinGW\msys\1.0\bin;C:\tools\mingw64\bin;C:\tools\mingw64\msys\1.0\bin;" + $env:Path
   # - ps: $env:Path = "c:\MinGW\bin;" + $env:Path
