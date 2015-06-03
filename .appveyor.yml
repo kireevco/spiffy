@@ -52,6 +52,7 @@ build_script:
   - cmd: mkdir build
   - cmd: cd c:\projects\spiffy
   # - cmd: mingw32-make.exe
+  - cmd: where make.exe
   - cmd: make.exe
 
 deploy:
