@@ -199,8 +199,11 @@ int get_rom_size (char *str) {
 
 int main(int argc, char **args) {
 	if (argc != 3) {
+			args [1]="196608";
+			args [2]="files";
         printf ("Usage: %s maxFsSizeinByte spiffsBaseDir\n", args[0]);
-       exit (EXIT_FAILURE);
+		printf ("There is no specific size or files directory.\nStarting in compatibility mode.\nDefault fs size is 196608 and directory is files.\n", args[0]);
+		//exit (EXIT_FAILURE);
     }
 	const int MAX_SIZE=get_rom_size (args [1]);
 	const char* FILEDIR=args [2];
